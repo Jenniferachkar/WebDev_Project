@@ -1,32 +1,13 @@
 import process from 'node:process'
-import Fastify from 'fastify'
 
-const envToLogger = {
-  development: {
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        translateTime: 'HH:MM:ss Z',
-        ignore: 'pid,hostname',
-      },
-    },
-  },
-  production: true,
-  test: false,
-}
-const fastify = Fastify({
-  logger: envToLogger[process.env.NODE_ENV] ?? true, // defaults to true if no entry matches in the map
-})
-
-fastify.get('/', async (_request, _reply) => {
-  return { hello: 'world' }
-})
+import app from './app.js'
+import config from './config.js'
 
 async function start() {
   try {
-    await fastify.listen({ port: 3000 })
+    await app.listen({ port: config.port })
   } catch (err) {
-    fastify.log.error(err)
+    app.log.error(err)
     process.exit(1)
   }
 }

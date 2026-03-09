@@ -4,10 +4,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node --watch src/index.js",
-    "lint": "eslint src"
+    "dev": "node --env-file='.env.development.local' --watch src/index.js",
+    "lint": "eslint src",
+    "start": "node --env-file-if-exists='.env' src/index.js"
   },
   "dependencies": {
     "fastify": "^5.6.1"
+  },
+  "devDependencies": {
+    "pino-pretty": "^13.1.3"
   }
 }

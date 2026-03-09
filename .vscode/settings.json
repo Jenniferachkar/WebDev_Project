@@ -47,5 +47,9 @@
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
+
+  // Prefer explicit .js extension in generated import paths
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "typescript.preferences.importModuleSpecifierEnding": "js"
 }
