@@ -1,10 +1,11 @@
 {
   "name": "server",
+  "type": "module",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "node --watch src/index.js"
+    "dev": "node --watch src/index.js",
+    "lint": "eslint src"
   },
   "dependencies": {
     "fastify": "^5.6.1"
