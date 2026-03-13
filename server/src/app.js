@@ -3,8 +3,9 @@ import Fastify from 'fastify'
 import config from './config.js'
 import envToLogger from './logger.js'
 import mongoosePlugin from './plugins/mongoose.js'
-import authRoutes from './routes/auth.js'
-import rootRoutes from './routes/root.js'
+import rootRoutes from './rootRoute.js'
+import authRoutes from './users/auth-routes.js'
+import usersRoutes from './users/users-routes.js'
 
 async function buildApp() {
   const fastify = Fastify({
@@ -13,6 +14,7 @@ async function buildApp() {
 
   await fastify.register(mongoosePlugin)
   fastify.register(authRoutes, { prefix: '/auth' })
+  fastify.register(usersRoutes, { prefix: '/users' })
   fastify.register(rootRoutes)
 
   return fastify

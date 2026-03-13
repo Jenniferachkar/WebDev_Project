@@ -23,7 +23,7 @@ const userSchema = new Schema({
   },
   validationToken: {
     type: String,
-    required: true,
+    default: null,
   },
 }, {
   timestamps: true,
