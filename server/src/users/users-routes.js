@@ -9,7 +9,7 @@ function usersRoutes(app) {
     // Récupérer le token de validation depuis la querystring de la requête
     const { token } = request.query
 
-    // Valider la présence du token
+    // TODO: Valider la présence du token
 
     // TODO: Rechercher l'utilisateur correspondant au token de validation
     // tip: https://mongoosejs.com/docs/queries.html
@@ -21,10 +21,15 @@ function usersRoutes(app) {
 
     // TODO: marquer l'email de l'utilisateur comme vérifié et supprimer le token de validation
     // TODO: sauvegarder les modifications de l'utilisateur dans la base de données
-
-    // TODO: retourner une réponse indiquant que l'email a été validé avec succès
   })
 
+  app.get('/me', {
+    onRequest: [app.authenticate], // Protéger cette route pour qu'elle soit accessible uniquement aux utilisateurs authentifiés
+  }, async (request, reply) => {
+    return reply.send({ user: request.currentUser })
+  })
+
+  // TODO: protéger aussi les routes suivantes pour qu'elles soient accessibles uniquement aux utilisateurs authentifiés (et éventuellement avec des rôles spécifiques)
   app.get('/', async (request, reply) => {
     // TODO: Implémenter la logique pour récupérer les utilisateurs depuis la base de données
     // tip: https://mongoosejs.com/docs/queries.html
@@ -47,6 +52,8 @@ function usersRoutes(app) {
   app.delete('/:id', async (request, reply) => {
     // Récupérer l'ID de l'utilisateur depuis les paramètres de la route
     const { id } = request.params
+    // TODO: Implémenter la logique pour supprimer un utilisateur par ID depuis la base de données
+    // tip: https://mongoosejs.com/docs/queries.html
   })
 }
 
