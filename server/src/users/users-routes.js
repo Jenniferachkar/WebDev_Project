@@ -26,11 +26,11 @@ function usersRoutes(app) {
   app.get('/me', {
     onRequest: [app.authenticate], // Protéger cette route pour qu'elle soit accessible uniquement aux utilisateurs authentifiés
   }, async (request, reply) => {
-    return reply.send({ user: request.currentUser })
+    return reply.send({ user: request.user })
   })
 
   // TODO: protéger aussi les routes suivantes pour qu'elles soient accessibles uniquement aux utilisateurs authentifiés (et éventuellement avec des rôles spécifiques)
-  app.get('/', async (request, reply) => {
+  app.get('', async (request, reply) => {
     // TODO: Implémenter la logique pour récupérer les utilisateurs depuis la base de données
     // tip: https://mongoosejs.com/docs/queries.html
     // TODO: Implémenter la pagination, les filtres, etc.
