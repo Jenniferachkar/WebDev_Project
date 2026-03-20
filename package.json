@@ -13,6 +13,7 @@
   "license": "ISC",
   "keywords": [],
   "scripts": {
+    "start": "turbo run start --filter=server",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint --parallel"
   },
