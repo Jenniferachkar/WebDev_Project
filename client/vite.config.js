@@ -10,6 +10,14 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  server: {
+    proxy: {
+      '/auth': 'http://localhost:3000',
+      '/users': 'http://localhost:3000',
+      '/products': 'http://localhost:3000',
+      '/orders': 'http://localhost:3000',
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

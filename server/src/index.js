@@ -1,16 +1,18 @@
-import { hash, verify } from 'node:crypto'
-
 import process from 'node:process'
+
 import buildApp from './app.js'
 import config from './config.js'
-import { hashPassword, verifyPassword } from './utils/crypto.js'
 
 async function start() {
   const app = await buildApp()
+
   try {
-    await app.listen({ port: config.port })
-  } catch (err) {
-    app.log.error(err)
+    await app.listen({
+      port: Number(config.port),
+      host: '0.0.0.0',
+    })
+  } catch (error) {
+    app.log.error(error)
     process.exit(1)
   }
 }
