@@ -1,39 +1,39 @@
-# JennyFits — Projet e-commerce (étudiant)
+# JennyFits â€” Projet e-commerce
 
-Projet Web Dev ESILV A4 — Jennifer El Achkar
+Projet Web Dev ESILV A4 â€” Jennifer El Achkar
 
-Un site de vente de vêtements pensé pour tester plusieurs modes de paiement : carte bancaire (Stripe), stablecoin USDC et token ERC-20 via MetaMask. L’objectif pédagogique : pratiquer un vrai flux full-stack (front Vue 3 + back Fastify + MongoDB) avec authentification, panier et commandes.
+Un site de vente de vÃªtements pensÃ© pour tester plusieurs modes de paiement : carte bancaire (Stripe), stablecoin USDC et token ERC-20 via MetaMask. Lâ€™objectif pÃ©dagogique : pratiquer un vrai flux full-stack (front Vue 3 + back Fastify + MongoDB) avec authentification, panier et commandes.
 
 ## Ce que tu vas construire
-- Authentification avec vérification email, connexion/déconnexion (JWT en cookie httpOnly)
-- Catalogue filtrable, pagination, page produit avec variantes (taille, couleur, quantité)
-- Panier persistant côté client (Pinia + localStorage)
+- Authentification avec vÃ©rification email, connexion/dÃ©connexion (JWT en cookie httpOnly)
+- Catalogue filtrable, pagination, page produit avec variantes (taille, couleur, quantitÃ©)
+- Panier persistant cÃ´tÃ© client (Pinia + localStorage)
 - Paiement carte (Stripe PaymentIntent) et crypto (USDC + token ERC-20 via MetaMask)
-- Création et suivi des commandes (statut paiement + historique utilisateur)
+- CrÃ©ation et suivi des commandes (statut paiement + historique utilisateur)
 
 ## Architecture rapide (monorepo Turborepo)
 - `client/` : Vue 3 + Vite + Pinia + Vue Router
 - `server/` : Node.js + Fastify + MongoDB (Mongoose)
-- `mongo-init/` : scripts d’init si tu lances Mongo avec Docker
+- `mongo-init/` : scripts dâ€™init si tu lances Mongo avec Docker
 - `package.json` (workspace) + `turbo.json` : scripts communs
 
-## Prérequis
+## PrÃ©requis
 - Node.js 20+
 - npm 10+
 - Docker Desktop (optionnel mais pratique pour MongoDB)
-- Un compte Stripe (clés de test) et MetaMask installé pour tester la crypto
+- Un compte Stripe (clÃ©s de test) et MetaMask installÃ© pour tester la crypto
 
-## Étapes pour lancer en local
-1) Installer les dépendances
+## Ã‰tapes pour lancer en local
+1) Installer les dÃ©pendances
 ```bash
 npm install
 ```
-2) Préparer les variables d’environnement back
+2) PrÃ©parer les variables dâ€™environnement back
 ```bash
 cp server/.env-example server/.env.development.local
 # Ouvre le fichier et renseigne MONGODB_URI, JWT_SECRET, STRIPE_*, SMTP_*, MERCHANT_WALLET_ADDRESS
 ```
-3) (Optionnel) Démarrer MongoDB avec Docker
+3) (Optionnel) DÃ©marrer MongoDB avec Docker
 ```bash
 docker-compose up -d
 ```
@@ -43,41 +43,41 @@ cd server
 node src/seed.js
 cd ..
 ```
-5) Lancer front + back en développement (Turborepo)
+5) Lancer front + back en dÃ©veloppement (Turborepo)
 ```bash
 npm run dev
 ```
-6) Ouvrir le front sur http://localhost:5173 et tester les parcours (inscription, ajout panier, paiement test Stripe ou réseau de test dans MetaMask)
+6) Ouvrir le front sur http://localhost:5173 et tester les parcours (inscription, ajout panier, paiement test Stripe ou rÃ©seau de test dans MetaMask)
 
 ## Commandes utiles
-- `npm run dev` : démarre front et back ensemble
-- `npm run lint` : lint côté client et serveur
+- `npm run dev` : dÃ©marre front et back ensemble
+- `npm run lint` : lint cÃ´tÃ© client et serveur
 - `npm test` dans `client/` : tests front
-- `npm run test` dans `server/` : tests API si présents
+- `npm run test` dans `server/` : tests API si prÃ©sents
 
-## Variables d’environnement principales
-Voir `server/.env-example` pour la liste complète.
+## Variables dâ€™environnement principales
+Voir `server/.env-example` pour la liste complÃ¨te.
 
-| Variable | À quoi ça sert |
+| Variable | Ã€ quoi Ã§a sert |
 | --- | --- |
-| `MONGODB_URI` | Connexion à MongoDB |
-| `JWT_SECRET` | Signature des JWT côté serveur |
-| `STRIPE_SECRET_KEY` | Clé secrète Stripe (test `sk_test_...`) |
+| `MONGODB_URI` | Connexion Ã  MongoDB |
+| `JWT_SECRET` | Signature des JWT cÃ´tÃ© serveur |
+| `STRIPE_SECRET_KEY` | ClÃ© secrÃ¨te Stripe (test `sk_test_...`) |
 | `STRIPE_WEBHOOK_SECRET` | Signature du webhook Stripe |
-| `MERCHANT_WALLET_ADDRESS` | Adresse Ethereum qui reçoit les paiements crypto |
+| `MERCHANT_WALLET_ADDRESS` | Adresse Ethereum qui reÃ§oit les paiements crypto |
 | `SMTP_*` | Config email (Ethereal possible pour les tests) |
 
 ## Choix techniques (pourquoi ces outils ?)
-- Fastify : rapide, validation intégrée des schémas
+- Fastify : rapide, validation intÃ©grÃ©e des schÃ©mas
 - Mongoose : mapping MongoDB simple pour prototyper
 - Pinia : store clair et typable, remplace Vuex
-- Stripe : gère la carte en conformité PCI, pas de carte brute sur le serveur
-- MetaMask + ethers.js : intégration simple des paiements crypto
-- JWT httpOnly : évite l’accès JS au token (XSS)
+- Stripe : gÃ¨re la carte en conformitÃ© PCI, pas de carte brute sur le serveur
+- MetaMask + ethers.js : intÃ©gration simple des paiements crypto
+- JWT httpOnly : Ã©vite lâ€™accÃ¨s JS au token (XSS)
 
-## Prochaine étape (déploiement)
+## Prochaine Ã©tape (dÃ©ploiement)
 - Brancher Stripe en mode live et configurer un domaine HTTPS
-- Héberger le back (Railway/Render/Fly.io) et le front (Vercel/Netlify)
-- Mettre à jour les URLs dans la config (`client/src/config` si présent) et les webhooks Stripe
+- HÃ©berger le back (Railway/Render/Fly.io) et le front (Vercel/Netlify)
+- Mettre Ã  jour les URLs dans la config (`client/src/config` si prÃ©sent) et les webhooks Stripe
 
 Bon dev !
