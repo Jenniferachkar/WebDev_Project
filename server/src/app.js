@@ -1,3 +1,4 @@
+import cors from '@fastify/cors'
 import Fastify from 'fastify'
 import config from './config.js'
 import envToLogger from './logger.js'
@@ -12,6 +13,11 @@ import usersRoutes from './users/users-routes.js'
 async function buildApp() {
   const fastify = Fastify({
     logger: envToLogger[config.env] ?? true,
+  })
+
+  await fastify.register(cors, {
+    origin: config.clientUrl,
+    credentials: true,
   })
 
   await fastify.register(authPlugin)

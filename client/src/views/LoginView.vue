@@ -1,4 +1,4 @@
-﻿<!-- LoginView.vue -->
+<!-- LoginView.vue -->
 <template>
   <div class="auth-page">
     <div class="auth-card">
@@ -10,7 +10,7 @@
         </div>
         <div class="field">
           <label>Mot de passe</label>
-          <input v-model="password" type="password" required placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" />
+          <input v-model="password" type="password" required placeholder="••••••••" />
         </div>
         <p class="error" v-if="auth.error">{{ auth.error }}</p>
         <button type="submit" :disabled="auth.loading">
@@ -40,8 +40,12 @@ async function handleLogin() {
     router.push(target)
   } catch (err) {
     if (!auth.error)
-      auth.error = err.message || 'Ã‰chec de la connexion.'
+      auth.error = err.message || 'Échec de la connexion.'
   }
 }
 </script>
+
+<style scoped>
+@import '../assets/auth.css';
+</style>
 

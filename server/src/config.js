@@ -4,6 +4,7 @@ export default {
   port: process.env.PORT || 3000,
   env: process.env.NODE_ENV || 'development',
   mongoUri: process.env.MONGODB_URI || 'mongodb://localhost:35115/myapp',
+  clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
   appBaseUrl: process.env.APP_BASE_URL || `http://localhost:${process.env.PORT || 3000}`,
   stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
   stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',

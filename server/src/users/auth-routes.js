@@ -155,18 +155,25 @@ function authRoutes(app) {
       username: user.username,
     }, { expiresIn: '2h' })
 
+    const isProduction = config.env === 'production'
     reply.setCookie(config.jwt.cookieName, token, {
       path: '/',
       httpOnly: true,
-      sameSite: 'lax',
-      secure: config.env === 'production',
+      sameSite: isProduction ? 'none' : 'lax',
+      secure: isProduction,
     })
 
     return reply.send({ message: 'Authentification réussie' })
   })
 
   app.post('/logout', async (request, reply) => {
-    reply.clearCookie(config.jwt.cookieName, { path: '/' })
+    const isProduction = config.env === 'production'
+    reply.clearCookie(config.jwt.cookieName, {
+      path: '/',
+      httpOnly: true,
+      sameSite: isProduction ? 'none' : 'lax',
+      secure: isProduction,
+    })
     return reply.send({ message: 'Déconnexion réussie' })
   })
 }
