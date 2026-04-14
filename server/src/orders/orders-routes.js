@@ -3,7 +3,8 @@ import config from '../config.js'
 import Product from '../products/product-schema.js'
 import Order from './order-schema.js'
 
-const stripe = config.stripeSecretKey ? new Stripe(config.stripeSecretKey) : null
+// Activer Stripe uniquement si ENABLE_STRIPE=true et une clé est présente
+const stripe = config.stripeEnabled && config.stripeSecretKey ? new Stripe(config.stripeSecretKey) : null
 
 // Adresse du wallet qui reçoit les paiements crypto
 const MERCHANT_WALLET = config.merchantWalletAddress || '0xYourWalletAddressHere'
