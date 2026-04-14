@@ -17,8 +17,8 @@
         </div>
         <p class="error" v-if="auth.error">{{ auth.error }}</p>
         <p class="success" v-if="success">{{ success }}</p>
-        <div v-if="verificationInfo?.verificationUrl" class="debug-link">
-          Lien de vérification (dev) :
+        <div v-if="verificationInfo?.verificationUrl" class="verify-link">
+          Pour vérifier votre compte, cliquez sur ce lien :
           <a :href="verificationInfo.verificationUrl" target="_blank" rel="noreferrer">
             Vérifier mon email
           </a>
@@ -48,7 +48,7 @@ async function handleRegister() {
   try {
     const data = await auth.register(email.value, password.value, username.value)
     verificationInfo.value = data
-    success.value = 'Compte créé ! Vérifiez votre email pour activer votre compte.'
+    success.value = 'Compte créé ! Cliquez sur le lien ci-dessous pour vérifier votre email.'
   } catch (err) {
     if (!auth.error)
       auth.error = err.message || 'Échec de l’inscription.'

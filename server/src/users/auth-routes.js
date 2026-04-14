@@ -12,12 +12,8 @@ function buildVerificationUrl(validationToken) {
 }
 
 function withVerificationDebugData(payload, validationToken) {
-  if (config.env === 'production') {
-    return payload
-  }
   return {
     ...payload,
-    verificationToken: validationToken,
     verificationUrl: buildVerificationUrl(validationToken),
   }
 }
