@@ -75,9 +75,28 @@ Voir `server/.env-example` pour la liste complète.
 - MetaMask + ethers.js : intégration simple des paiements crypto
 - JWT httpOnly : évite l’accès JS au token (XSS)
 
-## Prochaine étape (déploiement)
-- Brancher Stripe en mode live et configurer un domaine HTTPS
-- Héberger le back (Railway/Render/Fly.io) et le front (Vercel/Netlify)
-- Mettre à jour les URLs dans la config (`client/src/config` si présent) et les webhooks Stripe
+## Déploiement en ligne (prod)
+- Front Vercel : https://web-dev-project-client.vercel.app
+- API Railway : https://webdevproject-production-4c0e.up.railway.app
+- MongoDB : Atlas (cluster M0)
+- Cookies cross-site : `SameSite=None; Secure` déjà géré en prod.
+- Paiement carte : mode démo par défaut (`ENABLE_STRIPE` absent ou `false`). Mettre `ENABLE_STRIPE=true` + `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` pour activer Stripe réel.
+
+### Variables côté Railway (API)
+- `MONGODB_URI` (format standard non-SRV Atlas)
+- `JWT_SECRET`, `JWT_COOKIE_NAME=auth_token`
+- `APP_BASE_URL=https://web-dev-project-client.vercel.app`
+- `ENABLE_STRIPE=false` (ou `true` si clés Stripe fournies)
+- `SMTP_*` (laisser vide en démo -> envoi JSON)
+- `MERCHANT_WALLET_ADDRESS`
+- `NODE_ENV=production`
+- Start command : `node src/index.js`
+
+### Variables côté Vercel (front)
+- `VITE_API_BASE_URL=https://webdevproject-production-4c0e.up.railway.app`
+
+### Rappels
+- Atlas : autoriser l’IP Railway (ou 0.0.0.0/0 en test).
+- Webhook Stripe (si activé) : `https://webdevproject-production-4c0e.up.railway.app/webhook/stripe`
 
 Bon dev !
